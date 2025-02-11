@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  firstName String
+  lastName  String
+  username  String
+  avatar    String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  wishlists Wishlist[]
+  reviews   Review[]
+  likes     Like[]
+  orders    Order[]
+
+  @@map("users")
+}
+
+model Product {
+  id         String     @id @default(uuid())
+  name       String     @unique
+  slug       String     @unique
+  desc       String?
+  price      Float
+  stock      Int        @default(0)
+  featured   Boolean    @default(false)
+  category   Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  wishlists  Wishlist[]
+  reviews    Review[]
+  orders     Order[]
+  likes      Like[]
+
+  @@map("products")
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  slug      String    @unique
+  desc      String
+  bannerUrl String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
+
+  @@map("categories")
+}
+
+enum OrderStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+  CANCELED
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String
+  product     Product     @relation(fields: [productId], references: [id])
+  productId   String
+  orderStatus OrderStatus @default(PENDING)
+  createdAt   DateTime    @default(now())
+  reviews     Review[]
+
+  @@unique([userId, productId]) // Prevents duplicate orders for the same product
+}
+
+model Wishlist {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId]) // Prevents duplicate wishlist entries
+}
+
+model Review {
+  id             String   @id @default(uuid())
+  comment        String
+  rate           Int? // Nullable, since replies don’t need a rating
+  user           User     @relation(fields: [userId], references: [id])
+  userId         String
+  product        Product  @relation(fields: [productId], references: [id])
+  productId      String
+  order          Order?   @relation(fields: [orderId], references: [id]) // Only for main reviews
+  orderId        String? // Null for replies since they are not tied to an order
+  parentReview   Review?  @relation("ReplyToReview", fields: [parentReviewId], references: [id])
+  parentReviewId String? // If null, it's a main review; if not, it's a reply
+  replies        Review[] @relation("ReplyToReview")
+  createdAt      DateTime @default(now())
+  likes          Like[]
+
+  @@map("reviews")
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  review    Review?  @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  reviewId  String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String?
+  createdAt DateTime @default(now())
+
+  @@unique([userId, reviewId]) // Ensure a user can only like a review once
+  @@unique([userId, productId]) // Ensure a user can only like a product once
+  @@map("likes")
+}
