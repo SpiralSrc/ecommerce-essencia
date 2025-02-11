@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function AdminDashboardPage() {
+export default function DashboardHome() {
   return (
-    <div>
-      <div>
-        <h1>Admin Dashboard Page</h1>
+    <div className="w-full h-full">
+      <div className="wrapper">
+        <h1 className="text-center">Dashboard</h1>
       </div>
     </div>
   );

@@ -2,20 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Hide Scrollbar */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Firefox */
+* {
+  scrollbar-width: 0;
+  }
+  
+  /* Chrome, Edge and Safari */
+  *::-webkit-scrollbar {
+  width: 0;
+  display: none;
+  }
+  
+  body::-webkit-scrollbar {
+  width: 0;
+  display: none;
+  }
+  
+  ::-webkit-scrollbar {
+  display: none;
+  }
+
+@layer base {
+  body {
+    @apply text-zinc-800 bg-orange-100 overflow-hidden
+  }
+
+  table {
+    @apply bg-slate-50
+  }
+
+  thead {
+    @apply bg-slate-100 border-b border-slate-300 shadow-sm
+  }
+
+  th {
+    @apply px-3 py-4
+  }
+
+  td {
+    @apply py-2 px-1 text-center
+  }
+
+  option {
+    @apply p-3
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .wrapper {
+    @apply max-w-7xl mx-auto px-2 lg:px-3 py-24
+  }
+}
+
+@layer utilities {
+  .btn-primary {
+    @apply py-2 bg-teal-600 rounded-lg border border-transparent hover:bg-teal-600/30 hover:text-teal-600 hover:border-teal-600/40 hover:shadow-xl transition-all
+  }
+  .btn-secondary {
+    @apply py-1 px-3 bg-orange-200 border border-transparent hover:shadow-xl transition-all hover:text-teal-600 hover:border-teal-600/40
+  }
 }

@@ -8,9 +8,22 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        xxs: "350px",
+        xs: "480px",
+        sm: "640px",
+        md: "840px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
+        "3xl": "1620px",
+        "4xl": "1920px",
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: "#739072",
+        secondary: "antiquewhite",
+        neutral: "#EFB495",
+        "primary-dark": "#3A4D39",
       },
     },
   },
