@@ -1,4 +1,4 @@
-import SideBar from "@/app/components/admin/Sidebar";
+import SideBar from "@/components/admin/Sidebar";
 import React from "react";
 
 export default function dashboardLayout({
