@@ -19,6 +19,9 @@ export default {
         "3xl": "1620px",
         "4xl": "1920px",
       },
+      fontFamily: {
+        fleur: ["var(--font-fleur)"],
+      },
       colors: {
         primary: "#739072",
         secondary: "antiquewhite",
