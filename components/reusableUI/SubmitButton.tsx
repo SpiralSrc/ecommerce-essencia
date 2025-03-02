@@ -18,7 +18,7 @@ interface ButtonProps {
     | undefined;
 }
 
-const Button = ({ children, onClick }: ButtonProps) => {
+const SubmitButton = ({ children, onClick }: ButtonProps) => {
   const { pending } = useFormStatus();
 
   return (
@@ -32,4 +32,4 @@ const Button = ({ children, onClick }: ButtonProps) => {
   );
 };
 
-export default Button;
+export default SubmitButton;

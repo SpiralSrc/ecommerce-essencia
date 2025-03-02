@@ -8,8 +8,8 @@ export const dashboardNavs = [
     icon: <LayoutDashboard />,
   },
   {
-    name: "Collections",
-    path: "/dashboard/collections",
+    name: "Categories",
+    path: "/dashboard/categories",
     icon: <Boxes />,
   },
   {
