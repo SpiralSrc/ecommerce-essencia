@@ -1,6 +1,8 @@
+// import { auth } from "@clerk/nextjs/server";
 import React from "react";
 
-export default function DashboardHome() {
+export default async function DashboardHome() {
+  // const {sessionClaims} = await auth()
   return (
     <div className="w-full h-full">
       <div className="wrapper">

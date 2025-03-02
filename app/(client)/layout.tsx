@@ -1,3 +1,4 @@
+import Navbar from "@/components/main/nav/Navbar";
 import React from "react";
 
 export default function ClientPageLayout({
@@ -5,5 +6,10 @@ export default function ClientPageLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div>{children}</div>;
+  return (
+    <>
+      <Navbar />
+      {children}
+    </>
+  );
 }

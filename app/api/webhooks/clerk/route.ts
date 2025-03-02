@@ -2,6 +2,8 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prismadb";
+import { clerkClient } from "@clerk/clerk-sdk-node";
+
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
   const WEBHOOK_SECRET = process.env.WEBHOOK_CLERK_SECRET;
@@ -52,8 +54,18 @@ export async function POST(req: Request) {
   // For this guide, you simply log the payload to the console
   const { id } = evt.data;
   const eventType = evt.type;
+  const clerkId = evt.data.id;
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
   console.log("Webhook body:", body);
+
+  if (!clerkId) {
+    throw new Error("Clerk ID is missing!");
+  }
+
+  // Assign default role to new users
+  await clerkClient.users.updateUser(clerkId, {
+    publicMetadata: { role: "CUSTOMER" },
+  });
 
   if (eventType === "user.created" || eventType === "user.updated") {
     try {
@@ -84,6 +96,7 @@ export async function POST(req: Request) {
               avatar: evt.data.image_url || "/noAvatar.png",
             },
           });
+
           console.log("User updated successfully");
         } else {
           // Create a new user
@@ -95,8 +108,10 @@ export async function POST(req: Request) {
               firstName: JSON.parse(body).data.first_name,
               lastName: JSON.parse(body).data.last_name,
               avatar: evt.data.image_url || "/noAvatar.png",
+              role: "CUSTOMER",
             },
           });
+
           console.log("User created successfully");
         }
       });
