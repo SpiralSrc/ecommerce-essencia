@@ -5,11 +5,11 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <nav className="w-screen h-20 sticky top-0 left-0 z-40 backdrop-blur-md">
-      <div className="w-full h-full max-w-7xl mx-auto p-3">
-        <div className="w-full h-full flex justify-between items-center">
+    <nav className="w-screen fixed top-0 left-0 z-40 backdrop-blur-md">
+      <div className="w-full max-w-7xl mx-auto p-3">
+        <div className="w-full flex justify-between items-center">
           {/* logo */}
-          <p className="font-fleur text-lg font-bold">logo</p>
+          <p className="font-fleur text-3xl font-bold">logo</p>
 
           {/* nav links */}
           <div className="flex justify-center items-center gap-3">
@@ -21,7 +21,7 @@ const Navbar = () => {
           </div>
 
           {/* user button */}
-          <div>
+          <div className="flex justify-center items-center">
             <UserButton />
           </div>
         </div>

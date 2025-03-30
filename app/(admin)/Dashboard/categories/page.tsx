@@ -17,7 +17,7 @@ export default async function CategoriesPage() {
         <div className="flex justify-end my-2">
           <Link
             href={"/dashboard/categories/add-category"}
-            className="rounded-full bg-teal-600/10 hover:bg-teal-600/30 flex p-1 transition-all"
+            className="rounded-full bg-teal-600/10 hover:bg-teal-600/30 flex p-1 smooth-effect"
           >
             <Plus className="w-6 h-6" />
           </Link>
@@ -54,12 +54,17 @@ export default async function CategoriesPage() {
                         </Link>
                       </td>
                       <td className="flex justify-end items-center gap-2">
-                        <FilePen
-                          size={18}
-                          className="text-teal-500 cursor-pointer"
-                        />
                         <Link
-                          href={`/dashboard/collections/${category.id}/delete`}
+                          href={`/dashboard/categories/${category.slug}/edit`}
+                        >
+                          <FilePen
+                            size={18}
+                            className="text-teal-500 cursor-pointer"
+                          />
+                        </Link>
+
+                        <Link
+                          href={`/dashboard/categories/${category.slug}/delete`}
                         >
                           <Trash2
                             size={20}

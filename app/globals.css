@@ -67,4 +67,12 @@
   .text-gradient {
     @apply bg-gradient-to-br from-teal-600 via-teal-200 to-teal-500 bg-clip-text
   }
+
+  .close-btn {
+    @apply smooth-effect  border border-transparent hover:text-pink-400/70 hover:border-pink-400/20 hover:bg-red-300/20;
+  }
+
+  .smooth-effect {
+    transition: all 500ms ease-in-out;
+  }
 }

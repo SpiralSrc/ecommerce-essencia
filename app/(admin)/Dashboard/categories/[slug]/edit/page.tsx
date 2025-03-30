@@ -1,9 +1,8 @@
-import AddCategoryForm from "@/components/admin/categories/AddCategoryForm";
 import { X } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-export default function AddCollectionsPage() {
+export default function EditCategoryPage() {
   return (
     <section>
       <div className="wrapper relative">
@@ -18,10 +17,7 @@ export default function AddCollectionsPage() {
         </div>
 
         {/* Form */}
-        <h1 className="text-center text-2xl font-bold">Add Category Page</h1>
-        <div className="px-3 py-4 mt-5">
-          <AddCategoryForm />
-        </div>
+        <h1>Edit Category</h1>
       </div>
     </section>
   );

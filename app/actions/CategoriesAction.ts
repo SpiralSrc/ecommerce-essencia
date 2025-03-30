@@ -55,20 +55,15 @@ export const addCategory = async (formData: FormData) => {
   redirect("/dashboard/categories");
 };
 
-export const deleteCategory = async (formData: FormData) => {
+export async function deleteCategory(formData: FormData) {
   const slug = formData.get("slug") as string;
 
-  if (!slug) {
-    throw new Error("There is no category found!");
-  }
+  await prisma.category.delete({
+    where: {
+      slug,
+    },
+  });
 
-  try {
-    await prisma.category.findUnique({
-      where: {
-        slug,
-      },
-    });
-  } catch (error) {
-    console.log("Error in deleting this cateogry", error);
-  }
-};
+  revalidatePath("/dashboard/categories");
+  redirect("/dashboard/categories");
+}
